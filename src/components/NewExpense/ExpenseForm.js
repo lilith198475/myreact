@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./ExpenseForm.css";
-const ExpenseForm = () => {
-     const [enteredTitle, setEnteredTitle] = useState("");
-     const [enteredAmount, setEnteredAmount] = useState("");
-     const [enteredDate, setEnteredDate] = useState("");
+const ExpenseForm = (props) => {
+  const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredAmount, setEnteredAmount] = useState("");
+  const [enteredDate, setEnteredDate] = useState("");
 
   // const [userInput, setUserInput] = useState({
   //   enteredTitle: "",
@@ -29,7 +29,7 @@ const ExpenseForm = () => {
     //   ...userInput,
     //   enteredAmount: event.target.value,
     // });
-     // setUserInput((prevState) => {
+    // setUserInput((prevState) => {
     //    return {...prevState, enteredAmount: event.target.value};
     // });
   };
@@ -43,29 +43,32 @@ const ExpenseForm = () => {
     // setUserInput((prevState) => {
     //    return {...prevState, enteredDate: event.target.value};
     // });
-    
   };
 
-  const submitHandler =(event) =>{
+  const submitHandler = (event) => {
     event.preventDefault();
 
-    const expenseData ={
+    const expenseData = {
       title: enteredTitle,
       amount: enteredAmount,
-      date: new Date(enteredDate)
+      date: new Date(enteredDate),
     };
-    console.log(expenseData);
-    setEnteredTitle('');
-    setEnteredAmount('');
-    setEnteredDate('');
-  }
+    props.onSaveExpenseData(expenseData);
+    setEnteredTitle("");
+    setEnteredAmount("");
+    setEnteredDate("");
+  };
 
   return (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Ttile</label>
-          <input type="text" value = {enteredTitle} onChange={titleChangeHandler} />
+          <input
+            type="text"
+            value={enteredTitle}
+            onChange={titleChangeHandler}
+          />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
